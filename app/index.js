@@ -1,5 +1,6 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
+var routes = require('./config/routes')
 
 var USER_DATA = {
   name: 'Juan Gomez',
@@ -13,7 +14,7 @@ var Avatar = React.createClass({
       <div>
         <Image src={this.props.user.image} />
         <Name name={this.props.user.name} />
-        <Username username={this.props.user.username} />
+        <ProfileName username={this.props.user.username} />
       </div>
     )
   }
@@ -27,14 +28,6 @@ var Image = React.createClass({
   }
 })
 
-var Username = React.createClass({
-  render () {
-    return (
-      <a href={'https://www.github.com/' + this.props.username}>{this.props.username}</a>
-    )
-  }
-})
-
 var Name = React.createClass({
   render () {
     return (
@@ -43,4 +36,29 @@ var Name = React.createClass({
   }
 })
 
-ReactDOM.render(<Avatar user={USER_DATA} />, document.getElementById('app'))
+var ProfileName = React.createClass({
+  render () {
+    return (
+      <Link href={'https://github.com/' + this.props.username}>
+        {this.props.username}
+      </Link>
+    )
+  }
+})
+
+var Link = React.createClass({
+  changeUrl () {
+    window.location.replace(this.props.href)
+  },
+  render () {
+    return (
+      <span
+        style={{cursor: 'pointer', color: 'blue'}}
+        onClick={this.changeUrl}>
+        {this.props.children}
+      </span>
+    )
+  }
+})
+
+ReactDOM.render(routes, document.getElementById('app'))
