@@ -11,7 +11,10 @@ var MainContainer = (props) => {
 }
 
 MainContainer.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(React.PropTypes.node),
+    PropTypes.node
+  ])
 }
 
 module.exports = MainContainer
