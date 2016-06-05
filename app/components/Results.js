@@ -5,6 +5,7 @@ var UserDetails = require('./UserDetails')
 var styles = require('../styles/index')
 var Link = require('react-router').Link
 var MainContainer = require('./MainContainer')
+var Loading = require('./Loading')
 
 function puke (object) {
   return <pre>{JSON.stringify(object, null, ' ')}</pre>
@@ -29,7 +30,7 @@ var Results = (props) => {
   var indexOfMinvalue = indexOfMaxValue === 0 ? 1 : 0
 
   if (props.isLoading === true) {
-    return <p>Loading!</p>
+    return <Loading />
   }
 
   if (props.scores[0] === props.scores[1]) {

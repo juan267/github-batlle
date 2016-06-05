@@ -47,7 +47,7 @@ var helpers = {
         return user.data
       })
     }).catch((err) => {
-      console.warn('Errro in getPlayersInfo')
+      console.warn('Err in getPlayersInfo')
     })
   },
   battle (playersArr) {
