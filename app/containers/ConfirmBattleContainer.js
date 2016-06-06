@@ -1,6 +1,7 @@
 var React = require('react')
 var ConfirmBattle = require('../components/ConfirmBattle')
 var githubHelpers = require('../utils/githubHelpers')
+var UserNotFound = require('../components/UserNotFound')
 
 var ConfirmBattleContainer = React.createClass({
   contextTypes: {
@@ -10,7 +11,8 @@ var ConfirmBattleContainer = React.createClass({
     console.log('getInitialState')
     return {
       playersInfo: [],
-      loading: true
+      loading: true,
+      userNotfound: false
     }
   },
   componentWillMount () {
@@ -26,6 +28,12 @@ var ConfirmBattleContainer = React.createClass({
         this.setState({
           loading: false,
           playersInfo: [players[0], players[1]]
+        })
+      }).catch((err) => {
+        console.log('Error in componDiDMount battle container', err)
+        this.setState({
+          loading: false,
+          userNotfound: true
         })
       })
   },
@@ -45,6 +53,9 @@ var ConfirmBattleContainer = React.createClass({
   },
   render () {
     console.log('Rendering')
+    if (this.state.userNotfound === true) {
+      return <UserNotFound isLoading={this.state.loading} />
+    }
     return (
       <div>
         <ConfirmBattle

@@ -1,4 +1,5 @@
 var React = require('react')
+var PropTypes = React.PropTypes
 
 var styles = {
   container: {
@@ -18,15 +19,25 @@ var styles = {
 }
 
 var Loading = React.createClass({
-  originalText: 'Loading',
+  propTypes: {
+    text: PropTypes.string,
+    speed: PropTypes.number
+  },
+  getDefaultProps () {
+    return {
+      text: 'Loading',
+      speed: 300
+    }
+  },
   getInitialState () {
+    this.originalText = this.props.text
     return {
       text: this.originalText
     }
   },
   componentDidMount () {
     this.interval = setInterval(() => {
-      if (this.state.text === 'Loading...') {
+      if (this.state.text === `${this.props.text}...`) {
         this.setState({
           text: this.originalText
         })
@@ -35,7 +46,7 @@ var Loading = React.createClass({
           text: this.state.text + '.'
         })
       }
-    }, 300)
+    }, this.props.speed)
   },
   componentWillUnmount () {
     clearInterval(this.interval)
